@@ -88,7 +88,17 @@ makeEdge (name, deps) =
 
 graphvizParams :: GraphvizParams n String String () String
 graphvizParams = nonClusteredParams {
-  globalAttributes = [GraphAttrs [Overlap (PrismOverlap Nothing)]],
+  globalAttributes =
+    [ GraphAttrs
+      [ Overlap (PrismOverlap Nothing)
+      , OutputOrder EdgesFirst
+      ]
+    , NodeAttrs
+       [ Style
+         [ SItem Filled []
+         ]
+       ]
+    ],
   fmtNode = \(_,label) -> [Label . StrLabel . Text.pack $ label],
   fmtEdge = \(_,_,label) -> [Label . StrLabel . Text.pack $ label]
   }
