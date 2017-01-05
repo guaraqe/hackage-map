@@ -53,7 +53,9 @@ latestPackage :: FilePath -> DirTree () -> Maybe (String, FilePath)
 latestPackage _ (Failed _ _) = Nothing
 latestPackage _ (File _ _) = Nothing
 latestPackage hackage (Dir name dirs) =
-  Just (name, hackage </> name </> getLatest dirs </> name <.> "cabal")
+  if name == "acme-everything"
+    then Nothing
+    else Just (name, hackage </> name </> getLatest dirs </> name <.> "cabal")
 
 getLatest :: [DirTree ()] -> String
 getLatest = maximum . foldr dirName []
